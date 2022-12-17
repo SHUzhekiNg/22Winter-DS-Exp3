@@ -1,20 +1,64 @@
-﻿// 5 - Matrix.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
+﻿#include <iostream>
+using namespace std;
 
-#include <iostream>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+bool Check(int *rs, int *cs, int r, int c, int *er, int *ec) {
+	bool iscorrect = true;
+	for (int i = 0; i < r; i++) {
+		if (rs[i] % 2 != 0) {
+			iscorrect = false;
+		} else {
+			(*er)++;
+		}
+	}
+	for (int i = 0; i < c; i++) {
+		if (cs[i] % 2 != 0) {
+			iscorrect = false;
+		} else {
+			(*ec)++;
+		}
+	}
+	return iscorrect;
 }
 
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
-
-// 入门使用技巧: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
+int main() {
+	int row, col,t, evenr = 0, evenc = 0;
+	cout << "输入矩阵行数和列数：";
+	cin >> row >> col;
+	//bool matrix[row][col];
+	int *rowsum = new int[row]();
+	int *colsum = new int[col]();
+//	for (int i = 0; i < row; i++) rowsum[i] = 0;
+//	for (int i = 0; i < col; i++) colsum[i] = 0;
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col; j++) {
+			cin >> t;
+			//matrix[i][j] = t;
+			rowsum[i] += t;
+			colsum[j] += t;
+		}
+	}
+	if (Check(rowsum, colsum, row, col, &evenr, &evenc)) {
+		cout << "OK" << endl;
+		return 0;
+	} else {
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				int temper = evenr,tempec = evenc;
+				if (rowsum[i] % 2 == 0) evenr--;
+				else evenr++;
+				if(colsum[j] % 2 == 0) evenc--;
+				else evenc++;
+				
+				if(evenr==row && evenc==col) {
+					cout << "Change("<<i<<','<<j<<')'<<endl;
+					return 0;
+				}
+				evenr = temper;
+				evenc = tempec;
+			}
+		}
+	}
+	cout << "Corrupt" << endl;
+	return 0;
+}
