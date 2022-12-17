@@ -2,32 +2,27 @@
 #define __NODE_H__
 
 // 结点类
-template <class ElemType>
-struct Node 
-{
-// 数据成员:
-	ElemType data[4];				// 数据域
-	Node<ElemType> *next;		// 指针域
+struct Node {
+	char *data;
+	Node *next;
+	int Nodelen;
 
-// 构造函数:
-	Node();						// 无参数的构造函数
-	Node(ElemType e, Node<ElemType> *link = NULL);	// 已知数数据元素值和指针建立结构
+	Node();
+	Node(char *e, int len, Node *link = NULL);
 };
 
-// 结点类的实现部分
-template<class ElemType>
-Node<ElemType>::Node()
-// 操作结果：构造指针域为空的结点
-{
-   next = NULL;
+Node::Node() {
+	Nodelen = 0;
+	data = new char[4];
+	assert(data);
+	next = NULL;
 }
 
-template<class ElemType>
-Node<ElemType>::Node(ElemType e, Node<ElemType> *link)
-// 操作结果：构造一个数据域为e和指针域为link的结点
-{
-   data = e;
-   next = link;
+Node::Node(char *e, int len, Node *link) {
+	Nodelen = len > 4 ? 4 : len;
+	data = new char[4];
+	assert(data);
+	for (int i = 0; i < Nodelen; i++) data[i] = e[i];
+	next = link;
 }
-
 #endif
