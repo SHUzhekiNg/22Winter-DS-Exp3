@@ -30,6 +30,7 @@ int main() {
 	int *colsum = new int[col]();
 //	for (int i = 0; i < row; i++) rowsum[i] = 0;
 //	for (int i = 0; i < col; i++) colsum[i] = 0;
+	cout << "输入数据：" << endl;
 	for (int i = 0; i < row; i++) {
 		for (int j = 0; j < col; j++) {
 			cin >> t;
