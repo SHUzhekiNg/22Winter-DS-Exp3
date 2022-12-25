@@ -6,7 +6,7 @@ int main(void) {
 	char c = '9';
 	cin >> t;
 	String test(t);
-//	cout << test.CStr();
+//	cout << test.CStr();   
 	while (c != '0') {
 		cout << endl << "1. ²âÊÔInsert()";
 		cout << endl << "2. ²âÊÔDelete()";

@@ -228,7 +228,7 @@ Status Insert(String &s1, String &s2, int p) {
 	const char *cs1 = s1.CStr();
 	const char *cs2 = s2.CStr();
 	int s1len = strlen(cs1);
-	if (p >= 0 && p < s1len) {
+	if (p >= 0 && p <= s1len) {
 		int len = strlen(cs1) + strlen(cs2);
 		char *cs = new char[len + 1];
 		strncpy(cs, cs1, p);
@@ -249,7 +249,7 @@ Status Insert(String &s1, String &s2, int p) {
 Status Delete(String &s, int p, int n) {
 	const char *cs = s.CStr();
 	int cslen = strlen(cs);
-	if (p >= 0 && (p + n) < cslen) {
+	if (p >= 0 && (p + n) <= cslen) {
 		int len = strlen(cs) - n;
 		char *news = new char[len + 1];
 		strncpy(news, cs, p);
@@ -265,7 +265,7 @@ Status Delete(String &s, int p, int n) {
 }
 
 Status SubString(String &dest, const String &s, int p, int n) {
-	if  (p >= 0 && p + n < s.GetLength() && n >= 0)	{
+	if  (p >= 0 && p + n <= s.GetLength() && n >= 0)	{
 		char *sub = new char[n + 1];
 		const char *strp = s.CStr();
 		strncpy(sub, strp + p, n);
