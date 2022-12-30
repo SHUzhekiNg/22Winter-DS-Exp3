@@ -88,6 +88,7 @@ int BM_find(const char *obj, const char *pat) {
 int BM_find(const char *obj, const char *pat, int *cnt) {
 	int objlen = strlen(obj), patlen = strlen(pat);
 	int i = 0, j, k;
+	(*cnt) = 0;
 	while (i <= objlen - patlen) {
 		for (j = patlen - 1; j >= 0; j--) {
 			if (pat[j] != obj[i + j]) {
