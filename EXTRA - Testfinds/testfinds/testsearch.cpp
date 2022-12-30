@@ -78,9 +78,12 @@ int BM_find(const char *obj, const char *pat) {
 			i += (patlen - 1 - j);
 			continue;
 		}
-		int temp = BM_find(pat, pat + j + 1);
-		k = temp == (j + 1) ? -1 : temp;
-		i += (j - k + 1);
+		int j1 = patlen - 1, temp = j1;
+		do {
+			temp = BM_find(pat, pat + (j1--));
+		} while (temp == j1 + 1 && j1 >= j + 1);
+		temp = temp == j1 + 1 ? -1 : temp;
+		i += (patlen - 1 - temp);
 	}
 	return -1;
 }
@@ -108,9 +111,15 @@ int BM_find(const char *obj, const char *pat, int *cnt) {
 			i += (patlen - 1 - j);
 			continue;
 		}
-		int temp = BM_find(pat, pat + j + 1);
-		k = temp == (j + 1) ? -1 : temp;
-		i += (j - k + 1);
+		int j1 = patlen - 1, temp = j1;
+		do {
+			temp = BM_find(pat, pat + (j1--));
+		} while (temp == j1 + 1 && j1 >= j + 1);
+		temp = temp == j1 + 1 ? -1 : temp;
+		i += (patlen - 1 - temp);
 	}
 	return -1;
 }
+//int temp = BM_find(pat, pat + j + 1);
+//k = temp == (j + 1) ? -1 : temp;
+//i += (j + 1 - k);
