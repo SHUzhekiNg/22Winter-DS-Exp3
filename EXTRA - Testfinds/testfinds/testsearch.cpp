@@ -60,7 +60,7 @@ int KMP_find(string &obj, string &pat, int* cnt) {
 
 int BM_find(const char *obj, const char *pat) {
 	int objlen = strlen(obj), patlen = strlen(pat);
-	int i = 0, j, k;
+	int i = 0, j;
 	while (i <= objlen - patlen) {
 		for (j = patlen - 1; j >= 0; j--) {
 			if (pat[j] != obj[i + j]) {
@@ -82,15 +82,20 @@ int BM_find(const char *obj, const char *pat) {
 		do {
 			temp = BM_find(pat, pat + (j1--));
 		} while (temp == j1 + 1 && j1 >= j + 1);
-		temp = temp == j1 + 1 ? -1 : temp;
-		i += (patlen - 1 - temp);
+		temp = temp == j1 + 1 ? -1 : (temp + (patlen - 1 - j1 - 1));
+		if (i + patlen - 1 - temp > objlen - patlen) {
+			i = objlen - patlen;
+		}
+		else {
+			i += (patlen - 1 - temp);
+		}
 	}
 	return -1;
 }
 
 int BM_find(const char *obj, const char *pat, int *cnt) {
 	int objlen = strlen(obj), patlen = strlen(pat);
-	int i = 0, j, k;
+	int i = 0, j;
 	(*cnt) = 0;
 	while (i <= objlen - patlen) {
 		for (j = patlen - 1; j >= 0; j--) {
@@ -115,8 +120,13 @@ int BM_find(const char *obj, const char *pat, int *cnt) {
 		do {
 			temp = BM_find(pat, pat + (j1--));
 		} while (temp == j1 + 1 && j1 >= j + 1);
-		temp = temp == j1 + 1 ? -1 : temp;
-		i += (patlen - 1 - temp);
+		temp = temp == j1 + 1 ? -1 : (temp + (patlen - 1 - j1 - 1));
+		if (i + patlen - 1 - temp > objlen - patlen) {
+			i = objlen - patlen;
+		}
+		else {
+			i += (patlen - 1 - temp);
+		}
 	}
 	return -1;
 }
